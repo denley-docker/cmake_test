@@ -12,6 +12,9 @@ if (USE_MYMATH)
   add_subdirectory(vendor/my_math)
   list(APPEND EXTRA_LIBS my_math)
 endif()
+set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
+include(json)
+list(APPEND EXTRA_LIBS nlohmann_json::nlohmann_json)
 
 add_executable(${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME}
