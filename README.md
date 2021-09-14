@@ -8,6 +8,3 @@ cmake测试
 # 分支
 * spdlog
 * json
-* gtest
-* [cppunit](https://www.freedesktop.org/wiki/Software/cppunit/): 含源码
-* [CppUnitLite](https://www.github.com/denleyhsiao/CppUnitLite)
