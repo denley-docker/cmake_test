@@ -5,6 +5,6 @@ set -ex
 cmake --version
 mkdir -p build
 cd build
-cmake ..
+cmake .. -DUSE_MYMATH=OFF
 make -j$(nproc --all)
 ./cmake_test
