@@ -18,3 +18,9 @@ target_sources(${PROJECT_NAME}
   PRIVATE
     src/my_math.cpp
 )
+
+install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+install(DIRECTORY include/${PROJECT_NAME}
+  DESTINATION include
+  PATTERN "*.h"
+)
