@@ -8,3 +8,6 @@ cmake测试
 # 分支
 * spdlog
 * json
+
+# 总结
+* `make install`后如何卸载：在执行完此命令的目录下执行`xargs rm < install_manifest.txt`
