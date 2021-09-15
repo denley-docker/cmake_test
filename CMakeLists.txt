@@ -5,6 +5,8 @@ project(cmake_test
   LANGUAGES CXX
 )
 
+configure_file(CMakeTestConfig.h.in CMakeTestConfig.h)
+
 add_executable(${PROJECT_NAME}
   src/main.cpp
 )
@@ -15,4 +17,5 @@ target_compile_features(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     include
+    ${PROJECT_BINARY_DIR}
 )
