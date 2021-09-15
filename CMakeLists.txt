@@ -11,7 +11,6 @@ configure_file(CMakeTestConfig.h.in CMakeTestConfig.h)
 if (USE_MYMATH)
   add_subdirectory(vendor/my_math)
   list(APPEND EXTRA_LIBS my_math)
-  list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/vendor/my_math/include")
 endif()
 
 add_executable(${PROJECT_NAME})
@@ -23,7 +22,6 @@ target_include_directories(${PROJECT_NAME}
   PRIVATE
     include
     ${PROJECT_BINARY_DIR}
-    ${EXTRA_INCLUDES}
 )
 target_sources(${PROJECT_NAME}
   PRIVATE
