@@ -1,21 +1,35 @@
-cmake_minimum_required(VERSION 3.21.2)
+cmake_minimum_required(VERSION 3.21.1)
 project(cmake_test
   VERSION 0.0.1
   DESCRIPTION "cmake test"
   LANGUAGES CXX
 )
 
+option(USE_MYMATH "Use tutorial provided math implementation" ON)
 configure_file(CMakeTestConfig.h.in CMakeTestConfig.h)
 
-add_executable(${PROJECT_NAME}
-  src/main.cpp
-)
+if (USE_MYMATH)
+  add_subdirectory(vendor/my_math)
+  list(APPEND EXTRA_LIBS my_math)
+  list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/vendor/my_math/include")
+endif()
+
+add_executable(${PROJECT_NAME})
 target_compile_features(${PROJECT_NAME}
   PRIVATE
     cxx_std_17
 )
 target_include_directories(${PROJECT_NAME}
-  PUBLIC
+  PRIVATE
     include
     ${PROJECT_BINARY_DIR}
+    ${EXTRA_INCLUDES}
+)
+target_sources(${PROJECT_NAME}
+  PRIVATE
+    src/main.cpp
+)
+target_link_libraries(${PROJECT_NAME}
+  PRIVATE
+    ${EXTRA_LIBS}
 )
