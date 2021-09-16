@@ -10,16 +10,32 @@ target_compile_features(${PROJECT_NAME}
   PRIVATE
     cxx_std_17
 )
+
 target_include_directories(${PROJECT_NAME}
   PUBLIC
-    include
+    $<INSTALL_INTERFACE:include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
 target_sources(${PROJECT_NAME}
   PRIVATE
     src/my_math.cpp
 )
 
-install(TARGETS ${PROJECT_NAME} DESTINATION lib)
+include(GNUInstallDirs)
+install(TARGETS ${PROJECT_NAME}
+  EXPORT ${PROJECT_NAME}Targets
+  LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
+install(EXPORT ${PROJECT_NAME}Targets
+  FILE ${PROJECT_NAME}Targets.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}
+)
+
+install(FILES ${CMAKE_CURRENT_LIST_DIR}/cmake/my_mathConfig.cmake
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/my_math)
+
 install(DIRECTORY include/${PROJECT_NAME}
   DESTINATION include
   PATTERN "*.h"
