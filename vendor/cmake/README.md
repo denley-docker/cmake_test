@@ -14,6 +14,7 @@ docker push denley/cmake:latest
 ```
 
 # 总结
+* [CMake Cookbook中文版](https://www.bookstack.cn/read/CMake-Cookbook/README.md)
 * [官方CMake 3.20](https://runebook.dev/zh-CN/docs/cmake/)
 * [CMake 入门实战](https://www.hahack.com/codes/cmake/)
 * [CMake 实践](https://gavinliu6.github.io/CMake-Practice-zh-CN/#/)
