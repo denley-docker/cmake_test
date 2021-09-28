@@ -1,28 +1,50 @@
-cmake_minimum_required(VERSION 3.21.1)
+cmake_minimum_required(VERSION 3.21.1 FATAL_ERROR)
 project(my_math
-  VERSION 0.0.1
+  VERSION 3.2.1
   DESCRIPTION "my math"
   LANGUAGES CXX
 )
 
-add_library(${PROJECT_NAME})
-target_compile_features(${PROJECT_NAME}
+add_library(${PROJECT_NAME}_objs)
+target_compile_features(${PROJECT_NAME}_objs
   PRIVATE
     cxx_std_17
 )
+target_include_directories(${PROJECT_NAME}_objs
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
 
+target_sources(${PROJECT_NAME}_objs
+  PRIVATE
+    src/my_math.cpp
+)
+set_target_properties(${PROJECT_NAME}_objs
+  PROPERTIES
+    POSITION_INDEPENDENT_CODE 1
+)
+add_library(${PROJECT_NAME}
+  STATIC
+    $<TARGET_OBJECTS:${PROJECT_NAME}_objs>
+)
+add_library(${PROJECT_NAME}_shared
+  SHARED
+    $<TARGET_OBJECTS:${PROJECT_NAME}_objs>
+)
+set_target_properties(${PROJECT_NAME}_shared
+  PROPERTIES
+    OUTPUT_NAME ${PROJECT_NAME}
+    VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+)
 target_include_directories(${PROJECT_NAME}
   PUBLIC
     $<INSTALL_INTERFACE:include>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )
-target_sources(${PROJECT_NAME}
-  PRIVATE
-    src/my_math.cpp
-)
 
 include(GNUInstallDirs)
-install(TARGETS ${PROJECT_NAME}
+install(TARGETS ${PROJECT_NAME} ${PROJECT_NAME}_shared
   EXPORT ${PROJECT_NAME}Targets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

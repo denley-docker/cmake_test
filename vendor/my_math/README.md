@@ -16,3 +16,11 @@ make install
 find_package(my_math REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE my_math)
 ```
+
+* 查看可执行程序所使用的shared library：
+```bash
+# Linux下
+ldd <EXECUTE_FILE_NAME>
+# MAC下
+otool -L <EXECUTE_FILE_NAME>
+```
